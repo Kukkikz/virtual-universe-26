@@ -20,15 +20,29 @@ same `gh` commands you ran by hand in Section 1.
 2. Pick the issue. Use the number you were given, or list open issues and ask:
    `gh issue list --state open`
 3. Read the issue and the code it mentions: `gh issue view <n>`
-4. Create a branch: `git switch -c fix/issue-<n>`
-5. Make the smallest change that fixes the issue, and run the project's tests
+4. When a fix needs library, framework, or API documentation, use the
+   Context7 connector to look up current, version-relevant guidance. Resolve
+   the library ID first, then query one focused documentation topic and include
+   the programming language when known.
+   - Send only public documentation queries to Context7. Do not include
+     repository code, secrets, credentials, personal data, or other private
+     information.
+   - Cite the relevant documentation source URLs in the draft PR body.
+   - If Context7 is unavailable or the lookup fails, say so plainly. Do not
+     claim that documentation was checked, and do not substitute a web search.
+5. Create a branch: `git switch -c fix/issue-<n>`
+6. Make the smallest change that fixes the issue, and run the project's tests
    if it has any.
-6. Commit only the files you changed for this issue, push the branch to the
-   fork, and open a draft pull request that closes the issue:
-   `gh pr create --draft --title "Fix #<n>: <issue title>" --body "<body>"`
-   Start the body with "Closes #<n>", then add a short summary and a
-   "How to test" section with the exact commands a reviewer can run.
-7. Ask before commenting on the issue with what changed and how to test it.
+7. Run the built-in `/security-review` skill on the changes before committing
+   or opening the pull request. Fix any HIGH or CRITICAL findings, then rerun
+   the review to confirm they are addressed. Include any remaining findings
+   below HIGH severity in the draft pull request body.
+8. Show the changes and obtain approval before committing, pushing explicitly to
+   the verified fork remote, and opening
+   a draft pull request that closes the issue. Preserve any learner skill edits
+   and include them only with approval:
+   `gh pr create --draft --title "Fix #<n>: <issue title>" --body "Closes #<n>"`
+9. Ask before commenting on the issue with what changed and how to test it.
    Report the exact issue, PR, and branch. Leave this PR branch checked out so
    the learner can review it in the same session; do not switch branches.
 
